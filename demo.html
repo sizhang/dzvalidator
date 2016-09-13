@@ -1,32 +1,80 @@
 <html>
 <head>
-    <script type="text/javascript" src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_d88366fd.js"></script>
+    <script type="text/javascript"
+            src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_d88366fd.js"></script>
     <script type="text/javascript" src="dzvalidator.js"></script>
+    <style>
+        input[type=text] {
+            padding: 10px;
+            width: 200px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type=text]:focus {
+            outline: none;
+        }
+
+        .dz-error {
+            padding: 5px;
+            background-color: #FCD1D1;
+            width:200px;
+            color:red;
+            display: inline-block;
+        }
+
+        .demo-item {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<input type="text" name="userName" value="3" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字" dz-regex-pattern="^\d+$"  dz-range="必须大于3小于10" dz-range-min="4" />
-<div dz-for="userName"></div>
+<div class="demo-item">
+    <input type="text" name="userName" placeholder="必须大于3小于10" value="" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字"
+           dz-regex-pattern="^\d+$" dz-range="必须大于3小于10" dz-range-min="4"/>
 
-<input type="text" name="userPhone" value="" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字" dz-regex-pattern="^\d+$" />
-<div dz-for="userPhone"></div>
+    <div dz-for="userName"></div>
+</div>
+
+<div class="demo-item">
+    <input type="text" name="userPhone" placeholder="手机号码必须是数字" value="" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字"
+           dz-regex-pattern="^\d+$"/>
+
+    <div dz-for="userPhone"></div>
+</div>
+
+<div class="demo-item">
+    <input type="text" placeholder="密码" name="userPwd" value="" dz-validation="true" dz-required="必须填写" />
+    <div dz-for="userPwd"></div>
+</div>
+
+<div class="demo-item">
+    <input type="text" placeholder="密码确认" name="userPwd2" value="" dz-validation="true" dz-required="必须填写" dz-equal-target="userPwd" dz-equal="两次密码不一致"/>
+    <div dz-for="userPwd2"></div>
+</div>
+
+<div class="demo-item">
+    <div dz-for="customError"></div>
+</div>
 
 
-<div dz-for="userPwd"></div>
-
-
-<input type="button" onclick="validate();" value="validate" />
+<input type="button" onclick="validate();" value="validate"/>
+<input type="button" onclick="showErrorMsgs();" value="Show Error Msgs From Ajax"/>
 <script type="text/javascript">
 
     function validate() {
-        $.dzValidator.setOptions({
-            errorClass : 'dz-my-error'
-        });
 
-        $.dzValidator.addRule('userPwd', '用户密码不对', function() {
+        $.dzValidator.addRule('customError', '自定义错误', function () {
             return false;
         });
         $.dzValidator.validate();
+    }
+
+    function showErrorMsgs() {
+        $.dzValidator.showErrorMsgs({
+            'userPhone' : '后台验证手机号码错误'
+        });
     }
 
 </script>
