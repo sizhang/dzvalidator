@@ -1,0 +1,34 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_d88366fd.js"></script>
+    <script type="text/javascript" src="dzvalidator.js"></script>
+</head>
+<body>
+
+<input type="text" name="userName" value="3" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字" dz-regex-pattern="^\d+$"  dz-range="必须大于3小于10" dz-range-min="4" />
+<div dz-for="userName"></div>
+
+<input type="text" name="userPhone" value="" dz-validation="true" dz-required="必须填写" dz-regex="必须是数字" dz-regex-pattern="^\d+$" />
+<div dz-for="userPhone"></div>
+
+
+<div dz-for="userPwd"></div>
+
+
+<input type="button" onclick="validate();" value="validate" />
+<script type="text/javascript">
+
+    function validate() {
+        $.dzValidator.setOptions({
+            errorClass : 'dz-my-error'
+        });
+
+        $.dzValidator.addRule('userPwd', '用户密码不对', function() {
+            return false;
+        });
+        $.dzValidator.validate();
+    }
+
+</script>
+</body>
+</html>
